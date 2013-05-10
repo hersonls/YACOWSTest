@@ -1,9 +1,9 @@
-opps-project-template
-=====================
+Meu projeto de teste YACOWS
+===========================
 
-Opps 0.1.6+ (Django 1.4+) project template layout.
+Por conta do tempo não foi implementado
 
 
-# How to install
-
-    django-admin.py startproject --template=https://github.com/opps/opps-project-template/zipball/master --extension=py,md,dev project_name
+- Thumbnails utilizando thumbor.
+- Formulário de contato com app e django forms.
+- Não adicionei {{ MEDIA_URL }} no contexto da template tag, deveria ter usado templatetag like {% get_static_prefix %}.
