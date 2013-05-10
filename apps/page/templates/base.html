@@ -1,0 +1,141 @@
+{% load mptt_tags %}
+{% load static %}
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        <title></title>
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        
+        <link rel="stylesheet" href="{% get_static_prefix %}bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{% get_static_prefix %}bootstrap/css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="{% get_static_prefix %}css/main.css">
+    </head>
+    <body>
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/pt_BR/all.js#xfbml=1&appId=271947512828739";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+        <div class="container">
+            <header>
+                <div class="hero-unit">
+                    <div class="row">
+                        <div class="span6">
+                            <h1 class="lead">SuperEsporte</h1>
+                        </div>
+                        <div class="span3 pull-right">
+                            <form class="navbar-search pull-left">
+                                <input type="text" class="search-query" placeholder="Search">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <nav>
+                    <ul class="nav nav-pills">
+                        {% recursetree opps_menu %}
+                            <li><a href="{% url 'articles:channel' node.long_slug %}">{{ node.name }}</a></li>
+
+                            {% if not node.is_leaf_node %}
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ node.name }} <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        {{ children }}
+                                    </ul>
+                                </li>
+                            {% endif %}
+                        {% endrecursetree %}
+                    </ul>
+                </nav>
+            </header>
+
+            {% block body %}
+                <div class="main-carousel-wrapper">
+                    <div id="mainCarousel" class="carousel slide">
+                        <div class="carousel-inner">
+                            {% for obj in posts %}
+                                <div class="item{% if forloop.first %} active{% endif %}">
+                                    <a href="{{ obj.get_absolute_url }}">
+                                      <img src="{{ MEDIA_URL }}{{ obj.main_image.image }}" width="400" alt="{{ obj.main_image.title }}" />
+                                    </a>
+
+                                    <div class="carousel-caption">
+                                        <h4>{{ obj.short_title }}</h4>
+                                        <p>{{ obj.title }}</p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <a class="left carousel-control" href="#mainCarousel" data-slide="prev">‹</a>
+                        <a class="right carousel-control" href="#mainCarousel" data-slide="next">›</a>
+                      </div>
+                </div>
+            
+               {% block main_content %}{% endblock %}
+                
+            {% endblock body %}
+
+            <footer class="well well-small">
+                <nav><a href="#contato-modal" role="button" data-toggle="modal">Contato</a></nav>
+            </footer>
+        </div>
+
+        <div id="contato-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="contato-modal" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">Envie sua mensagem de contato</h3>
+            </div>
+            
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="control-group">
+                        <label class="control-label" for="inputNome">Nome</label>
+                        <div class="controls">
+                            <input type="text" id="inputNome" placeholder="Nome">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="inputEmail">Email</label>
+                        <div class="controls">
+                            <input type="text" id="inputEmail" placeholder="Email">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="inputMessagem">Mensage</label>
+                        <div class="controls">
+                            <textarea id="inputMessagem" name="message" rows="3"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Enviar</button>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="{% get_static_prefix %}js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="{% get_static_prefix %}bootstrap/js/bootstrap.min.js"></script>
+        
+        <script type="text/javascript">
+            !function ($) {
+                
+            }(window.jQuery);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,16 @@
+.socials {
+    width: 253px;
+}
+
+.main-carousel-wrapper {
+    text-align: center;
+}
+
+#mainCarousel {
+    display: inline-block;
+    width: 700px;
+}
+
+#mainCarousel .carousel-caption {
+    text-align: left;
+}

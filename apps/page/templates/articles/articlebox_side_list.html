@@ -1,0 +1,23 @@
+{% for box in articleboxes %}
+    <section class="articleboxes">
+        <h3>{{ box.name }}</h3>
+
+        <ul class="thumbnails row"> 
+        {% for articleboxarticle in box.articleboxarticles_articleboxes.all %}
+            <li class="clearfix span4">
+            
+            <div class="thumbnail clearfix">
+                <a href="{{ articleboxarticle.article.get_absolute_url }}">
+                    <img class="pull-left" style="width: 100px; height: 110px; margin-right: 10px;" src="{{ MEDIA_URL }}{{ articleboxarticle.article.main_image.image }}">
+                </a>
+
+                <div class="caption">
+                    <h4><a href="{{ articleboxarticle.article.get_absolute_url }}">{{ articleboxarticle.article.hat }}</a></h4>
+                    <p>{{ articleboxarticle.article.short_title }}</p>
+                </div>
+            </div>
+          </li>
+        {% endfor %}
+        </ul>
+    </section>
+{% endfor %}

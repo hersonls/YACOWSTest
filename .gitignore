@@ -1,0 +1,7 @@
+*.pyc
+*_dev.py
+*.db
+.DS_Store
+.codeintel
+opps/
+images/
